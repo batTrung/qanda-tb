@@ -137,3 +137,45 @@ def delete_question(request, question_slug):
                                         {'question': question},
                                         request=request)
     return JsonResponse(data)
+
+
+@login_required
+@ajax_required
+def delete_answer(request, answer_uuid):
+    data = dict()
+    answer = get_object_or_404(Answer, user=request.user, uuid=answer_uuid)
+    if request.method == "POST":
+        data['id_item'] = f'#item-{answer.uuid}'
+        answer.delete()
+    else:
+        data['html_form'] = render_to_string('qanda/answer/form_delete.html',
+                                            {'answer': answer},
+                                            request=request)
+    return JsonResponse(data)
+
+
+@login_required
+@ajax_required
+def update_answer(request, question_slug, answer_uuid):
+    data = dict()
+    question = get_object_or_404(Question, slug=question_slug)
+    answer = get_object_or_404(Answer, user=request.user, uuid=answer_uuid)
+    if request.method == "POST":
+        form = AnswerForm(request.POST, instance=answer)
+        if form.is_valid():
+            new_answer = form.save()
+            data['is_valid'] = True
+            data['id_item'] = f'#item-{answer.uuid}'
+            data['html_data'] = render_to_string('qanda/answer/item.html',
+                                                {'answer': new_answer, 'question': question},
+                                                request=request)
+        else:
+            data['is_valid'] = False
+
+    else:
+        form = AnswerForm(instance=answer)
+
+    data['html_form'] = render_to_string('qanda/answer/form_update.html',
+                                        {'answer': answer, 'form': form, 'question': question},
+                                        request=request)
+    return JsonResponse(data)

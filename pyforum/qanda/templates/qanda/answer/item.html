@@ -18,11 +18,11 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item btn-lg-modal"
                                     href="javascript:void(0)"
-                                    data-url="">
+                                    data-url="{% url 'update_answer' question.slug answer.uuid %}">
                                     <i class="fas fa-edit mr-2"></i> Sửa</a>
                                 <a class="dropdown-item text-danger btn-modal"
                                     href="javascript:void(0)"
-                                    data-url="">
+                                    data-url="{% url 'delete_answer' answer.uuid %}">
                                     <i class="fa fa-trash mr-2"></i> Xóa</a>
                             </div>
                             {% endif %}

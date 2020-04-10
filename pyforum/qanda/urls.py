@@ -23,4 +23,6 @@ urlpatterns = [
     path('ajax/question/<slug:question_slug>/answer/<uuid:answer_uuid>/accept/', ajax_views.accept_answer, name='accept_answer'),
 
     path('ajax/question/<slug:question_slug>/answer/create/', ajax_views.create_answer, name='create_answer'),
+    path('ajax/answer/<uuid:answer_uuid>/delete/', ajax_views.delete_answer, name='delete_answer'),
+    path('ajax/question/<slug:question_slug>/answer/<uuid:answer_uuid>/update/', ajax_views.update_answer, name='update_answer'),
 ]

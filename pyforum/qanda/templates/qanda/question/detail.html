@@ -1,0 +1,70 @@
+{% extends "qanda/base.html" %}
+{% load static %}
+{% block title %}
+{{ question.title }}
+{% endblock title %}
+{% block content %}
+{% csrf_token %}
+<div class="card shadow">
+    <div class="card-body">
+        <div class="row js-toggle-qa modal-block">
+            <div class="col-1 d-none d-sm-none d-md-block text-center qa-vote">
+                {% include "qanda/includes/question_votes.html" %}
+            </div>
+            <div class="col-11">
+                <div class="d-block d-sm-flex justify-content-between mb-3">
+                    <h6 class="small d-flex">
+                        {% include "accounts/includes/avatar_sm.html" with user=question.user %}
+                        <strong class="text-muted pt-1">{{ question.user }}</strong>
+                    </h6>
+                    <div class="d-flex align-items-center">
+                        <small><i class="far fa-clock mr-2"></i>{{ question.created_at|timesince }}</small>
+                        {% if user == question.user %}
+                        <button aria-expanded="false" class="btn btn-link ml-3 p-0" data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></span></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                                href="">
+                                <i class="fas fa-edit mr-2"></i> Sửa</a>
+                            <a class="dropdown-item text-danger btn-modal"
+                                href="javascript:void(0)"
+                                data-url="">
+                                <i class="fa fa-trash mr-2"></i> Xóa</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <h4 class="card-title">{{ question.title }}</h4>
+                <div class="mb-3">
+                    {% include "qanda/includes/category.html" with category=question.category %}
+                </div>
+                <p class="card-text">
+                    {{ question.content }}
+                </p>
+                <div class="card-footer footer-qa">
+                    <a class="mr-3 float-right js-scroll" href="#form-comment">
+                        <i class="far fa-comments mr-2 text-primary"></i>
+                        Bình luận
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %}
+<div class="my-5 pt-4">
+    <h2>Bình luận ({{ question.count_comments }})</h2>
+    <div class="dropdown-divider mb-4"></div>
+    <div id="comments" class="js-toggle-qa modal-block modal-data">
+        {% include "qanda/comment/list.html" with comments=question.list_comments %}
+    </div>
+    <div id="form-comment" class="mb-4">
+        {% include "qanda/comment/form_create.html" %}
+    </div>
+</div>
+{% endcomment %}
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/qanda.js' %}"></script>
+{% endblock scripts %}

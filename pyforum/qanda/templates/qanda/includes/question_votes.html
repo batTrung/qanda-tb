@@ -1,0 +1,24 @@
+<div class="p-2 align-middle">
+    <span class="fas fa-sort-up fa-3x js-vote-qa
+        {% if user in question.list_users_voteup %}
+        voted
+        {% endif %}"
+        title="Click để vote up"
+        data-url="{% url 'voteup_question' question.slug %}"
+        ></span>
+    <span class="total-votes">{{ question.total_votes }}</span>
+    <span class="fas fa-sort-down fa-3x js-vote-qa
+        {% if user in question.list_users_votedown %}
+        voted
+        {% endif %}"
+        title="Click để vote down"
+        data-url="{% url 'votedown_question' question.slug %}"></span>
+    <span class="
+        {% if user in question.list_users_saved %}
+        fas {% else %} far
+        {% endif %}
+        fa-star fa-lg text-warning my-3 d-block js-save-qa"
+        title="Lưu bài viết này"
+        data-url="{% url 'save_question' question.slug %}"></span>
+    <span style="white-space: nowrap;">{{ question.total_users_saved }}</span>
+</div>

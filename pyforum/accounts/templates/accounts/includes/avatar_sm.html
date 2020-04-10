@@ -1,0 +1,13 @@
+{% load core %}
+<a href=""
+    class="avatar-sm mr-1 d-none d-lg-block btn-{{ user | class_color }}"
+    title="">
+    {% if user.photo %}
+    {% load thumbnail %}
+    {% thumbnail user.photo 25x25 crop="center" as im %}
+    <img class="img-fluid rounded-circle" alt="{{ user.username }}" src="{{ im.url }}">
+    {% endthumbnail %}
+    {% else %}
+    {{ user.get_word_avatar }}
+    {% endif %}
+</a>

@@ -7,7 +7,7 @@ urlpatterns = [
 
     path('', include('core.urls')),
     path('accounts/', include('accounts.urls')),
-    # path('', include('qanda.urls')),
+    path('', include('qanda.urls')),
 ]
 
 from django.conf import settings

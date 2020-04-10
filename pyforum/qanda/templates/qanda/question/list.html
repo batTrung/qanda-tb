@@ -1,0 +1,33 @@
+{% extends "qanda/base.html" %}
+
+{% block content %}
+<div class="media justify-content-between">
+    <h4 class="mb-3">Danh sách Q&A</h4>
+    <a href="" class="btn mb-3 btn-success text-white" type="button">
+        <i class="fas fa-plus"></i> Thêm câu hỏi
+    </a>
+</div>
+<div class="shadow mb-5">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Câu hỏi</th>
+                <th scope="col"></th>
+                <th scope="col">Bình luận</th>
+                <th scope="col">Lượt xem</th>
+                <th scope="col">Votes</th>
+                <th scope="col">Ngày đăng</th>
+            </tr>
+        </thead>
+        <tbody id="js-tbody-questions">
+            {% include "qanda/includes/list_questions.html" %}
+        </tbody>
+    </table>
+    <div class="py-2 text-center">
+        <div class="spinner-border" style="display: none" id="js-loading" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+{% endblock content %}

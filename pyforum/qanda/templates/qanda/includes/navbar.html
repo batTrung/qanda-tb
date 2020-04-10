@@ -1,0 +1,28 @@
+<nav class="my-4 p-3">
+    <div class="nav nav-pills nav-fill flex-column flex-md-row">
+        <a class="nav-item nav-link border text-secondary mr-2 {% ifequal section 'new' %}active-qa{% endifequal %}"
+            href="{% url 'new_questions' %}">
+            <i class="far fa-comment-dots mr-2 text-success"></i>Q&A
+        </a>
+        <a class="nav-item nav-link border text-secondary mr-2" href=""><i class="far fa-list-alt mr-2 text-danger"></i>Categories</a>
+        <a class="nav-item nav-link border text-secondary mr-2
+            {% ifequal section 'top' %}
+            active-qa
+            {% endifequal %}"
+            href="{% url 'top_questions' %}"><i class="fas fa-award mr-2 text-primary"></i>Top</a>
+        {% if user.is_authenticated %}
+        <a class="nav-item nav-link border text-secondary mr-2
+            {% ifequal section 'saved' %}
+                active-qa
+            {% endifequal %}"
+            href="{% url 'saved_questions' %}"><i class="fas fa-star mr-2 text-warning"></i>Đã lưu</a>
+        <a class="nav-item nav-link border text-secondary mr-2
+            {% ifequal section 'unread' %}
+                active-qa
+            {% endifequal %}"
+            href="{% url 'unread_questions' %}">
+            <i class="far fa-eye-slash mr-2 text-dark"></i>Chưa xem
+        </a>
+        {% endif %}
+    </div>
+</nav>

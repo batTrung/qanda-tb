@@ -1,0 +1,12 @@
+<a href=""
+    class="avatar-lg mr-1 d-none d-lg-block"
+    title="">
+    {% if user.photo %}
+    {% load thumbnail %}
+    {% thumbnail user.photo 50x50 crop="center" as im %}
+    <img class="img-fluid rounded-circle" alt="{{ user.username }}" src="{{ im.url }}">
+    {% endthumbnail %}
+    {% else %}
+    {{ user.get_word_avatar }}
+    {% endif %}
+</a>

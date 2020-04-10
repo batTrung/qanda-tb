@@ -1,0 +1,25 @@
+{% for question in questions %}
+<tr id="q-{{ question.slug }}">
+    <th scope="row">{{ forloop.counter0 | add:questions.start_index }}</th>
+    <td>
+        <a href="{{ question.get_absolute_url }}" class="{% if user in question.list_users_viewed %}qa-viewed{% endif %}">
+            {{ question.title }}
+        </a>
+        <div>
+            {% include "qanda/includes/category.html" with category=question.category %}
+        </div>
+    </td>
+    <td>
+        <div class="d-flex">
+            {% for user in question.list_unique_users_answered %}
+                {% include "accounts/includes/avatar_sm.html" %}
+            {% endfor %}
+        </div>
+    </td>
+
+    <td>{{ question.count_answers }}</td>
+    <td>{{ question.total_views }}</td>
+    <td>{{ question.total_votes }}</td>
+    <td>{{ question.created_at|timesince }}</td>
+</tr>
+{% endfor %}

@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 
-from .models import Question
+from ..models import Question
+from ..forms import QuestionForm, AnswerForm
 from core.helpers import get_pagination_items
-
 
 
 def list_questions(request, query, section=''):
@@ -28,6 +29,11 @@ def list_questions(request, query, section=''):
         'section': section,
     }
     return render(request, 'qanda/question/list.html', context)
+
+
+def list_questions_by_category(request, category_slug):
+    query = Question.objects.filter(category__slug=category_slug)
+    return list_questions(request, query)
 
 
 def new_questions(request):
@@ -64,7 +70,43 @@ def question_detail(request, question_slug):
 
     context = {
         'question': question,
+        'form': AnswerForm(),
         'section': 'new',
     }
 
     return render(request, 'qanda/question/detail.html', context)
+
+
+@login_required
+def create_question(request):
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            new_question = form.save(commit=False)
+            new_question.user = request.user
+            new_question.save()
+            return redirect(reverse('question_detail', args=[new_question.slug]))
+    else:
+        form = QuestionForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'qanda/question/create.html', context)
+
+
+@login_required
+def question_update(request, question_slug):
+    question = get_object_or_404(Question, user=request.user, slug=question_slug)
+    if request.method == 'POST':
+        form = QuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            question = form.save()
+            return redirect(reverse('question_detail', args=[question.slug]))
+    else:
+        form = QuestionForm(instance=question)
+        
+    context = {
+        'form': form,
+    }
+    return render(request, 'qanda/question/update.html', context)

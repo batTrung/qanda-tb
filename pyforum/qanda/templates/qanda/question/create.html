@@ -1,0 +1,14 @@
+{% extends "qanda/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="text-center">
+    <h1 class="display-4">Thêm câu hỏi mới</h1>
+    <p class="lead text-muted">Thêm câu hỏi, chủ đề nào đó để được giải đáp hoặc cùng nhau thảo luận.</p>
+</div>
+
+{% crispy form %}
+
+{% endblock content %}

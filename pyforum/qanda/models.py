@@ -3,7 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 
-from .managers import QuestionManager
+from .managers import QuestionManager, AnswerManager
 from core.behaviors import UUIDable, Timestampable, TitleSlugable
 from core.models import Category, Voteable
 
@@ -36,6 +36,9 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
     def list_unique_users_answered(self):
         return list(set(a.user for a in self.answers.all()))[:5]
 
+    def list_answers(self):
+        return self.answers.order_by('-is_answer', '-total_votes')
+
     def add_users_viewed(self, user):
         if user.is_authenticated:
             user_exists = self.users_viewed.filter(username=user.username).exists()
@@ -59,3 +62,5 @@ class Answer(UUIDable, Timestampable, Voteable):
     content = models.TextField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     is_answer = models.BooleanField(default=False)
+
+    objects = AnswerManager()

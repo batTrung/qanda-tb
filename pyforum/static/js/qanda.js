@@ -44,7 +44,11 @@ $(function () {
             },
             success: function (data) {
                 $(".qa-vote").find('.js-accept-qa').removeClass('text-success');
+                $('#answers').find('.color-accept').removeClass('bg-light');
                 el.closest('.qa-vote').html(data.html_votes);
+                if (data.id_item) {
+                    $('#answers').find(data.id_item).find('.color-accept').addClass('bg-light');
+                }
             }
         });
     };
@@ -154,7 +158,7 @@ $(function () {
             data: form.serialize(),
             success: function (data) {
                 if (data.is_valid) {
-                    $('#comments').append(data.html_data);
+                    $('#answers').append(data.html_data);
                     form[0].reset();
                 }
             }

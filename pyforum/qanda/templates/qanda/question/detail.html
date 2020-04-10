@@ -23,11 +23,11 @@
                         <button aria-expanded="false" class="btn btn-link ml-3 p-0" data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></span></button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item"
-                                href="">
+                                href="{% url 'question_update' question.slug %}">
                                 <i class="fas fa-edit mr-2"></i> Sửa</a>
                             <a class="dropdown-item text-danger btn-modal"
                                 href="javascript:void(0)"
-                                data-url="">
+                                data-url="{% url 'delete_question' question.slug %}">
                                 <i class="fa fa-trash mr-2"></i> Xóa</a>
                         </div>
                         {% endif %}
@@ -43,7 +43,7 @@
                 <div class="card-footer footer-qa">
                     <a class="mr-3 float-right js-scroll" href="#form-comment">
                         <i class="far fa-comments mr-2 text-primary"></i>
-                        Bình luận
+                        Trả lời
                     </a>
                 </div>
             </div>
@@ -51,18 +51,18 @@
     </div>
 </div>
 
-{% comment %}
 <div class="my-5 pt-4">
-    <h2>Bình luận ({{ question.count_comments }})</h2>
+    <h2>Trả lời ({{ question.count_answers }})</h2>
     <div class="dropdown-divider mb-4"></div>
-    <div id="comments" class="js-toggle-qa modal-block modal-data">
-        {% include "qanda/comment/list.html" with comments=question.list_comments %}
+    <div id="answers" class="js-toggle-qa modal-block modal-data">
+        {% include "qanda/answer/list.html" with answers=question.list_answers %}
     </div>
-    <div id="form-comment" class="mb-4">
-        {% include "qanda/comment/form_create.html" %}
+
+    <div id="form-answer" class="mb-4">
+        {% include "qanda/answer/form_create.html" %}
     </div>
+
 </div>
-{% endcomment %}
 {% endblock content %}
 
 {% block scripts %}

@@ -26,4 +26,3 @@ def get_pagination_items(request, query, num=30):
         results = paginator.page(paginator.num_pages)
 
     return results
-

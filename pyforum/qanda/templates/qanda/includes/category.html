@@ -1,2 +1,2 @@
 {% load core %}
-<a href=""><span class="badge text-uppercase btn-{{ category|class_color }}">{{ category.title }}</span></a>
+<a href="{% url 'list_questions_by_category' category.slug %}"><span class="badge text-uppercase btn-{{ category|class_color }}">{{ category.title }}</span></a>

@@ -1,0 +1,70 @@
+<div class="mb-4" id="item-{{ answer.uuid }}">
+    <div class="card mb-2 color-accept {% if answer.is_answer %}bg-light{% endif %}">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-1 d-none d-sm-none d-md-block text-center qa-vote">
+                    {% include "qanda/includes/answer_votes.html" %}
+                </div>
+                <div class="col-11">
+                    <div class="d-block d-sm-flex justify-content-between mb-3">
+                        <h6 class="small d-flex">
+                            {% include "accounts/includes/avatar_sm.html" with user=answer.user %}
+                            <strong class="text-muted pt-1">{{ answer.user }}</strong>
+                        </h6>
+                        <div class="d-flex align-items-center">
+                            <small><i class="far fa-clock mr-2"></i>{{ answer.created_at|timesince }}</small>
+                            {% if user == answer.user %}
+                            <button aria-expanded="false" class="btn btn-link ml-3 p-0" data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></span></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item btn-lg-modal"
+                                    href="javascript:void(0)"
+                                    data-url="">
+                                    <i class="fas fa-edit mr-2"></i> Sửa</a>
+                                <a class="dropdown-item text-danger btn-modal"
+                                    href="javascript:void(0)"
+                                    data-url="">
+                                    <i class="fa fa-trash mr-2"></i> Xóa</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p class="card-text">
+                        {{ answer.content }}
+                    </p>
+                    <div class="card-footer footer-qa">
+                        <a class="mr-3 float-right" href="#">
+                            <i class="far fa-comments mr-2 text-primary"></i>
+                            33.7k bình luận
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment "child comment" %}
+    <div class="card ml-5 mb-2">
+        <div class="card-body">
+            <div class="d-block d-sm-flex justify-content-between mb-3">
+                <h6 class="small">
+                    <img class="rounded-circle mr-2" alt="25x25" src="https://www.w3schools.com/howto/img_avatar.png" width="25" height="25">
+                    <strong class="text-muted">Awards</strong>
+                </h6>
+                <small><i class="far fa-clock mr-2"></i>Last updated 1 day ago</small>
+            </div>
+            <p class="card-text">Some example text. Some example text.</p>
+        </div>
+    </div>
+    <div class="card ml-5 mb-2">
+        <div class="card-body">
+            <div class="d-block d-sm-flex justify-content-between mb-3">
+                <h6 class="small">
+                    <img class="rounded-circle mr-2" alt="25x25" src="https://www.w3schools.com/howto/img_avatar.png" width="25" height="25">
+                    <strong class="text-muted">Awards</strong>
+                </h6>
+                <small><i class="far fa-clock mr-2"></i>Last updated 1 day ago</small>
+            </div>
+            <p class="card-text">Some example text. Some example text.</p>
+        </div>
+    </div>
+    {% endcomment %}
+</div>

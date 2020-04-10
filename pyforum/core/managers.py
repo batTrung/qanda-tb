@@ -14,4 +14,3 @@ class VoteManager(models.Manager):
             self).get_queryset(
             ).select_related('user'
             )
-

@@ -4,7 +4,7 @@
     title="">
     {% if user.photo %}
     {% load thumbnail %}
-    {% thumbnail user.photo 25x25 crop="center" as im %}
+    {% thumbnail user.photo "25x25" crop="center" as im %}
     <img class="img-fluid rounded-circle" alt="{{ user.username }}" src="{{ im.url }}">
     {% endthumbnail %}
     {% else %}

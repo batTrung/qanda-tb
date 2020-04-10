@@ -1,0 +1,26 @@
+<div class="p-2 align-middle">
+    <span class="fas fa-sort-up fa-3x js-vote-qa
+        {% if user in answer.list_users_voteup %}
+        voted
+        {% endif %}"
+        title="Click để vote up"
+        data-url="{% url 'voteup_answer' question.slug answer.uuid %}"
+        ></span>
+    <span class="total-votes">{{ answer.total_votes }}</span>
+    <span class="fas fa-sort-down fa-3x js-vote-qa
+        {% if user in answer.list_users_votedown %}
+        voted
+        {% endif %}"
+        title="Click để vote down"
+        data-url="{% url 'votedown_answer' question.slug answer.uuid %}"></span>
+    {% if user == question.user %}
+    <span class="fas fa-check fa-2x my-3 js-accept-qa
+        {% if answer.is_answer %}
+        text-success
+        {% endif %}"
+        title = "Đánh dấu câu trả lời"
+        data-url="{% url 'accept_answer' question.slug answer.uuid %}"></span>
+    {% elif answer.is_answer %}
+    <span class="fas fa-check fa-2x my-3 text-success"></span>
+    {% endif %}
+</div>

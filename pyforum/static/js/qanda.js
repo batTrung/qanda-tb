@@ -138,7 +138,7 @@ $(function () {
     }
  
 
-    //  Vote Comment and Quetion
+    //  Vote Answer and Quetion
     $('.js-toggle-qa').on('click', 'span.js-vote-qa', toggleVotes)
 
     // Saved Quetion
@@ -147,8 +147,8 @@ $(function () {
     // Accept Answer
     $('.js-toggle-qa').on('click', 'span.js-accept-qa', toggleAccept)
 
-    // Create  Comment
-    $('form#js-create-comment-form').on('submit', function () {
+    // Create  Answer
+    $('form#js-create-answer-form').on('submit', function () {
         let form = $(this);
 
         $.ajax({
@@ -172,8 +172,8 @@ $(function () {
 
 
     // Submit Form and Remove Item
-    $('#modal-root').on('submit', 'form#js-comment-delete-form', submitRemoveForm)
+    $('#modal-root').on('submit', 'form#js-answer-delete-form', submitRemoveForm)
     $('#modal-root').on('submit', 'form#js-question-delete-form', submitRedirectForm)
 
-    $('#modal-lg-root').on('submit', 'form#js-comment-update-form', submitReplaceLargeForm)
+    $('#modal-lg-root').on('submit', 'form#js-answer-update-form', submitReplaceLargeForm)
 });

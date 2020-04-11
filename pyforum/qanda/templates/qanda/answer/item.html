@@ -1,3 +1,4 @@
+{% load core %}
 <div class="mb-3" id="item-{{ answer.uuid }}">
     <div class="card mb-2 color-accept {% if answer.is_answer %}bg-light{% endif %}">
         <div class="card-body">
@@ -29,7 +30,7 @@
                         </div>
                     </div>
                     <p class="card-text">
-                        {{ answer.content }}
+                        {{ answer.content | markdown }}
                     </p>
                 </div>
             </div>

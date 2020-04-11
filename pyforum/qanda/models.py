@@ -44,7 +44,7 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
 
     @property
     def more_answers(self):
-        return self.answers.filter(is_reply=True).count() > settings.NUM_ANSWERS
+        return self.list_answers().count() > settings.NUM_ANSWERS
 
     def add_users_viewed(self, user):
         if user.is_authenticated:
@@ -86,7 +86,7 @@ class Answer(UUIDable, Timestampable, Voteable):
 
     @property
     def more_replies(self):
-        return self.replies.count() > settings.NUM_REPLIES
+        return self.list_replies().count() > settings.NUM_REPLIES
 
     @property
     def count_replies(self):

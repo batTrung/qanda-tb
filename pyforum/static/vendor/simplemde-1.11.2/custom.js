@@ -44,6 +44,7 @@ var Toolbar_br = {
 
 $(function() {
 
+    $('table').addClass("table");
     $('textarea').each(function(i, el) {
 
         var simplemde = new SimpleMDE({

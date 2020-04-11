@@ -1,4 +1,5 @@
 {% extends "qanda/base.html" %}
+{% load core %}
 {% load static %}
 {% block title %}
 {{ question.title }}
@@ -38,7 +39,7 @@
                     {% include "qanda/includes/category.html" with category=question.category %}
                 </div>
                 <p class="card-text">
-                    {{ question.content }}
+                    {{ question.content | markdown }}
                 </p>
             </div>
         </div>

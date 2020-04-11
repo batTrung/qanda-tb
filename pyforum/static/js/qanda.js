@@ -197,6 +197,9 @@ $(function () {
                     form[0].reset();
                     const $codemirror = $('textarea[name="content"]').nextAll('.CodeMirror')[0].CodeMirror;
                     $codemirror.getDoc().setValue("");
+                    $('pre > code').each(function() {
+                         hljs.highlightBlock(this);
+                    });
                 }
             }
         });

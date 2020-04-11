@@ -19,6 +19,8 @@ def get_pagination_items(request, query, num=30):
     try:
         results = paginator.page(page)
     except PageNotAnInteger:
+        if request.is_ajax():
+            return ''
         results = paginator.page(1)
     except EmptyPage:
         if request.is_ajax():

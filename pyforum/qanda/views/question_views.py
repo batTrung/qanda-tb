@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 
 from ..models import Question
-from ..forms import QuestionForm, AnswerForm
+from ..forms import QuestionForm, AnswerForm, ReplyForm
 from core.helpers import get_pagination_items
 
 
@@ -70,6 +70,7 @@ def question_detail(request, question_slug):
 
     context = {
         'question': question,
+        'reply_form': ReplyForm(),
         'form': AnswerForm(),
         'section': 'new',
     }

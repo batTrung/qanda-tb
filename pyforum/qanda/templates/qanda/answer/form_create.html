@@ -1,6 +1,8 @@
 {% load crispy_forms_tags %}
-<form action="{% url 'create_answer' question.slug %}" method="post" id="js-create-answer-form">
+<form action="{% url 'create_answer' question.slug %}" method="post" id="js-create-answer-form" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
-    <button type="submit" class="btn btn-primary">Trả lời</button>
+    <button type="submit" class="btn btn-primary">
+        <i class="far fa-paper-plane mr-1"></i> Trả lời
+    </button>
 </form>

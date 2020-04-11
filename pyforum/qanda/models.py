@@ -37,7 +37,14 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
         return list(set(a.user for a in self.answers.all()))[:5]
 
     def list_answers(self):
-        return self.answers.order_by('-is_answer', '-total_votes')
+        return self.answers.filter(is_reply=False).order_by('-is_answer', '-total_votes')
+
+    def top_answers(self):
+        return self.list_answers()[:settings.NUM_ANSWERS]
+
+    @property
+    def more_answers(self):
+        return self.answers.filter(is_reply=True).count() > settings.NUM_ANSWERS
 
     def add_users_viewed(self, user):
         if user.is_authenticated:
@@ -62,5 +69,27 @@ class Answer(UUIDable, Timestampable, Voteable):
     content = models.TextField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     is_answer = models.BooleanField(default=False)
+    parent = models.ForeignKey("self",
+                            on_delete=models.CASCADE,
+                            blank=True,
+                            null=True,
+                            related_name='replies')
+    is_reply = models.BooleanField(default=False, db_index=True)
 
     objects = AnswerManager()
+
+    def list_replies(self):
+        return self.replies.all()
+        
+    def top_replies(self):
+        return self.list_replies()[:settings.NUM_REPLIES]
+
+    @property
+    def more_replies(self):
+        return self.replies.count() > settings.NUM_REPLIES
+
+    @property
+    def count_replies(self):
+        return self.replies.count()
+
+    

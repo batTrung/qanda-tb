@@ -151,3 +151,6 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'home'
+
+NUM_ANSWERS = 7
+NUM_REPLIES = 3

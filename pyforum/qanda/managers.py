@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models import Prefetch
+
+from core.models import Vote
 
 
 class QuestionManager(models.Manager):
@@ -25,5 +28,5 @@ class AnswerManager(models.Manager):
     def get_queryset(self):
         return super(AnswerManager,
                     self).get_queryset(
-                    ).select_related('user'
-                    )
+                    ).select_related('user',
+                    ).prefetch_related('replies')

@@ -37,3 +37,11 @@ class AnswerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AnswerForm, self).__init__(*args, **kwargs)
         self.fields['content'].label = ""
+
+
+class ReplyForm(forms.Form):
+    content = forms.CharField(max_length=300)
+
+    def __init__(self, *args, **kwargs):
+        super(ReplyForm, self).__init__(*args, **kwargs)
+        self.fields['content'].label = ""

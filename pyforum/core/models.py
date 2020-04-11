@@ -34,13 +34,16 @@ class Vote(UUIDable):
 
 
 class Voteable(models.Model):
-    total_votes = models.IntegerField(default=0)
+    total_votes = models.IntegerField(default=0, db_index=True)
     votes = GenericRelation(Vote)
 
     def count_votes(self):
         dic = Counter(self.votes.values_list("value", flat=True))
         type(self).objects.filter(uuid=self.uuid).update(total_votes=dic[True] - dic[False])
         self.refresh_from_db()
+
+    def count_votes_up(self):
+        return self.votes.filter(value=False).count()
 
     def list_users_voteup(self):
         return [vote.user for vote in self.votes.filter(value=True)]

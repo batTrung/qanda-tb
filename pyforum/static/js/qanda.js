@@ -1,4 +1,5 @@
 $(function () {
+    $("form").attr('novalidate', 'novalidate');
     var csrftoken = $("input[name='csrfmiddlewaretoken']").val()
 
     var toggleSave = function () {
@@ -136,7 +137,41 @@ $(function () {
         });
         return false;
     }
- 
+     
+    var submitReplyForm = function () {
+        var form = $(this);
+        $.ajax({
+            url: form.attr('action'),
+            dataType: 'json',
+            type: form.attr('method'),
+            data: form.serialize(),
+            success: function (data) {
+                if (data.is_valid) {
+                    form.closest('.qa-reply').after(data.html_data);
+                    form[0].reset();
+                }
+            }
+        });
+        return false;
+    }
+
+    var loadMore = function (el, page) {
+        console.log(page)
+        $.ajax({
+            url: el.attr('data-url')+ '?page=' + page,
+            dataType: 'json',
+            type: 'get',
+            success: function (data) {
+                if (data.is_valid) {
+                    el.before(data.html_data);
+                    page += 1;
+                } else {
+                    el.html('')
+                }
+            }
+        });
+        return false;
+    }
 
     //  Vote Answer and Quetion
     $('.js-toggle-qa').on('click', 'span.js-vote-qa', toggleVotes)
@@ -160,6 +195,8 @@ $(function () {
                 if (data.is_valid) {
                     $('#answers').append(data.html_data);
                     form[0].reset();
+                    const $codemirror = $('textarea[name="content"]').nextAll('.CodeMirror')[0].CodeMirror;
+                    $codemirror.getDoc().setValue("");
                 }
             }
         });
@@ -176,4 +213,49 @@ $(function () {
     $('#modal-root').on('submit', 'form#js-question-delete-form', submitRedirectForm)
 
     $('#modal-lg-root').on('submit', 'form#js-answer-update-form', submitReplaceLargeForm)
+
+    // CRUD Reply
+    $('#answers').on('submit', 'form.js-create-reply-form', submitReplyForm)
+
+    var pageAnswer = 2;
+    var pageReply = 2;
+
+    $('#answers').on('click', '#js-load-more-answers', function () {
+        let el = $(this);
+
+        $.ajax({
+            url: el.attr('data-url')+ '?page=' + pageAnswer,
+            dataType: 'json',
+            type: 'get',
+            success: function (data) {
+                if (data.is_valid) {
+                    el.before(data.html_data);
+                    pageAnswer += 1;
+                } else {
+                    el.html('')
+                }
+            }
+        });
+        return false;
+    });
+
+    $('#answers').on('click', '#js-load-more-replies', function () {
+        let el = $(this);
+        
+        $.ajax({
+            url: el.attr('data-url')+ '?page=' + pageReply,
+            dataType: 'json',
+            type: 'get',
+            success: function (data) {
+                if (data.is_valid) {
+                    el.before(data.html_data);
+                    pageReply += 1;
+                } else {
+                    el.html('')
+                }
+            }
+        });
+        return false;
+    });
+
 });

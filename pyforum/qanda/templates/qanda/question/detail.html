@@ -40,13 +40,13 @@
                 <p class="card-text">
                     {{ question.content }}
                 </p>
-                <div class="card-footer footer-qa">
-                    <a class="mr-3 float-right js-scroll" href="#form-answer">
-                        <i class="far fa-comments mr-2 text-primary"></i>
-                        Trả lời
-                    </a>
-                </div>
             </div>
+        </div>
+        <div class="card-footer footer-qa">
+            <a class="mr-3 float-right js-scroll" href="#form-answer">
+                <i class="far fa-comments mr-2 text-primary"></i>
+                Trả lời
+            </a>
         </div>
     </div>
 </div>
@@ -55,16 +55,21 @@
     <h2>Trả lời ({{ question.count_answers }})</h2>
     <div class="dropdown-divider mb-4"></div>
     <div id="answers" class="js-toggle-qa modal-block modal-data">
-        {% include "qanda/answer/list.html" with answers=question.list_answers %}
+        {% include "qanda/answer/list.html" with answers=question.top_answers %}
+        {% if question.more_answers %}
+        <div class="text-center mb-2"
+            id="js-load-more-answers"
+            data-url="{% url 'load_more_asnwers' question.slug %}">
+            <button class="btn btn-light">
+               <i class="fas fa-arrow-circle-down mr-1"></i> Xem thêm</button>
+        </div>
+        {% endif %}
     </div>
-
+    <div class="dropdown-divider mt-3"></div>
+    <h2 class="mt-4">Viết câu trả lời</h2>
     <div id="form-answer" class="mb-4">
         {% include "qanda/answer/form_create.html" %}
     </div>
 
 </div>
 {% endblock content %}
-
-{% block scripts %}
-<script src="{% static 'js/qanda.js' %}"></script>
-{% endblock scripts %}

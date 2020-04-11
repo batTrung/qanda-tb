@@ -1,3 +1,4 @@
+{% load core %}
 <div class="card ml-5 mb-2" id="item-{{ reply.uuid }}">
     <div class="card-body">
         <div class="d-block d-sm-flex justify-content-between mb-3">
@@ -22,6 +23,6 @@
                 {% endif %}
             </div>
         </div>
-        <p class="card-text">{{ reply.content }}</p>
+        <p class="card-text">{{ reply.content | markdown }}</p>
     </div>
 </div>

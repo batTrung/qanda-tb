@@ -1,4 +1,7 @@
 $(function () {
+    var options = getOptions();
+    var sml = new SimpleMDE(options);
+
     $("form").attr('novalidate', 'novalidate');
     var csrftoken = $("input[name='csrfmiddlewaretoken']").val()
 
@@ -129,7 +132,10 @@ $(function () {
             success: function (data) {
                 if (data.is_valid) {
                    $('#modal-lg-root').modal("hide");
-                   $('.modal-data').find(data.id_item).replaceWith(data.html_data)
+                   $('.modal-data').find(data.id_item).replaceWith(data.html_data);
+                   $('pre > code').each(function() {
+                         hljs.highlightBlock(this);
+                    });
                 } else {
                    $('#modal-lg-root .modal-content').html(data.html_form)
                 }

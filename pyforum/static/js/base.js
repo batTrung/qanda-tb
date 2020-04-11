@@ -1,5 +1,4 @@
 $(function () {
-
     // Scroll to load more items
     var page = 1;
     var block_request = false;

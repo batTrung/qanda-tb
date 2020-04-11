@@ -41,43 +41,39 @@ var Toolbar_br = {
     }
 };
 
+var getOptions = function () {
+    return {
+        spellChecker: false,
+        status: true,
+        toolbar: [
+            "undo",
+            "redo",
+            "|",
+            "bold",
+            "italic",
+            "heading",
+            "|",
+            "table",
+            "unordered-list",
+            "ordered-list",
+            "|",
+            "link",
+            "image",
+            Toolbar_YouTube,
+            "|",
+            "code",
+            "horizontal-rule",
+            Toolbar_br,
+            "|",
+            "preview",
+            "side-by-side",
+            "fullscreen",
+            "|",
+            "guide",
+        ],
+    }
+}
 
 $(function() {
-
     $('table').addClass("table");
-    $('textarea').each(function(i, el) {
-
-        var simplemde = new SimpleMDE({
-            element: el,
-            spellChecker: false,
-            status: true,
-            toolbar: [
-                "undo",
-                "redo",
-                "|",
-                "bold",
-                "italic",
-                "heading",
-                "|",
-                "table",
-                "unordered-list",
-                "ordered-list",
-                "|",
-                "link",
-                "image",
-                Toolbar_YouTube,
-                "|",
-                "code",
-                "horizontal-rule",
-                Toolbar_br,
-                "|",
-                "preview",
-                "side-by-side",
-                "fullscreen",
-                "|",
-                "guide",
-            ],
-        });
-    });
-
 });

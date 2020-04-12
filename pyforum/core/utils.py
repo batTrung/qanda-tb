@@ -21,6 +21,6 @@ def create_votes(obj, user, value, voted):
     if voted == "TRUE":
         vote.delete()
     else:
-        o, created = obj.votes.update_or_create(user=user, defaults={"value": value})
-
+        vote, created = obj.votes.update_or_create(user=user, defaults={"value": value})
+        
     obj.count_votes()

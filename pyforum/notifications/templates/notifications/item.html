@@ -1,0 +1,26 @@
+<a href="{{ action.link }}" class="list-group-item list-group-item-action flex-column">
+    <div class="media">
+        <div class="pull-left mr-2">
+            {% with actor=action.actor %}
+            {% if actor.photo %}
+            {% load thumbnail %}
+            {% thumbnail actor.photo "50x50" crop="center" as im %}
+            <img class="img-fluid avatar-lg rounded-circle" alt="{{ user.username }}" src="{{ im.url }}">
+            {% endthumbnail %}
+            {% else %}
+            {% load core %}
+            <div class="avatar-lg btn-{{ user | class_color }}">{{ actor.get_word_avatar }}</div>
+            {% endif %}
+            {% endwith %}
+        </div>
+        <div class="media-body">
+            <p class="mb-1">
+                {{ action | truncatewords:10 }}
+            </p>
+            <span><i class="fas fa-lg mr-2 {{ action.get_icon }}"></i></span>
+            <small>
+                <i class="far fa-clock text-primary"></i> {{ action.created_at|timesince }}
+            </small>
+        </div>
+    </div>
+</a>

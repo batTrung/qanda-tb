@@ -22,6 +22,7 @@ def save_question(request, question_slug):
     user = request.user
     if user not in question.list_users_saved():
         question.users_saved.add(user)
+        question.create_action_save_question(request.user)
     else:
         question.users_saved.remove(user)
     
@@ -85,7 +86,6 @@ def votedown_answer(request, question_slug, answer_uuid):
     return create_answer_votes(request, question_slug, answer_uuid, False)
 
 
-
 @login_required
 @require_POST
 @ajax_required
@@ -96,6 +96,8 @@ def accept_answer(request, question_slug, answer_uuid):
     question.answers.filter(is_answer=True).update(is_answer=False)
     answer.is_answer = not answer.is_answer
     answer.save()
+    answer.create_action_accept_answer(request.user)
+    
     data['id_item'] = f'#item-{ answer.uuid }' if answer.is_answer else None
 
     data['html_votes'] = render_to_string('qanda/includes/answer_votes.html',

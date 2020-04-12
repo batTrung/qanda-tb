@@ -6,6 +6,8 @@ from django.contrib.contenttypes.fields import GenericRelation
 from .managers import QuestionManager, AnswerManager
 from core.behaviors import UUIDable, Timestampable, TitleSlugable
 from core.models import Category, Voteable
+from notifications.utils import create_action
+from notifications.constants import ActionTypes
 
 
 class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
@@ -61,6 +63,9 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
     def count_users_saved(self):
         return self.users_saved.count()
 
+    def create_action_save_question(self, actor):
+        create_action(self.user, ActionTypes.SAVED, actor, self, self.get_absolute_url())
+
 
 class Answer(UUIDable, Timestampable, Voteable):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -78,6 +83,9 @@ class Answer(UUIDable, Timestampable, Voteable):
 
     objects = AnswerManager()
 
+    def __str__(self):
+        return self.content 
+        
     def list_replies(self):
         return self.replies.all()
         
@@ -92,4 +100,13 @@ class Answer(UUIDable, Timestampable, Voteable):
     def count_replies(self):
         return self.replies.count()
 
+    def get_absolute_url(self):
+        question_detail_url = reverse('question_detail', args=[self.question.slug])
+        return f'{ question_detail_url }#item-{self.uuid}'
+
+    def create_action_accept_answer(self, actor):
+        if self.is_answer:
+            create_action(self.user, ActionTypes.ACCEPTED_ANSWER, actor, self, self.get_absolute_url())
     
+    def create_action_new_answer(self, actor):
+        pass

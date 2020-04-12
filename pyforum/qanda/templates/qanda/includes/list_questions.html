@@ -11,7 +11,7 @@
     </td>
     <td>
         <div class="d-flex">
-            {% for user in question.list_unique_users_answered %}
+            {% for user in question.top_unique_users_answered %}
                 {% include "accounts/includes/avatar_sm.html" %}
             {% endfor %}
         </div>

@@ -1,3 +1,4 @@
+{% csrf_token %}
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
     <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}"><i class="far fa-comments"></i> PYForum</a>
@@ -18,49 +19,35 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                <li class="nav-item dropdown">
-                    <span class="badge badge-pill badge-danger" style="float:right; margin-bottom:-10px;">{{ count_notifications }}</span>
-                    <a class="nav-link" href="" id="myNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown" id="js-dropdown-event">
+                    {% if count_notifications %}
+                    <span class="badge badge-pill badge-danger count-actions"
+                            style="float:right; margin-bottom:-5px;">{{ count_notifications }}</span>
+                    {% endif %}
+                    <a class="nav-link"
+                        href="javascript:void(0)"
+                        id="myNotification"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        data-url="{% url 'get_actions' %}">
                         <i class="far fa-bell mr-2 text-primary"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="myNotification" style="border: none; min-width: 23rem; margin:0; padding: 0">
-                         <div class="list-group">
-                            {% include "notifications/list.html" with actions=user.notifications.all %}
-                            <a href="#" class="list-group-item list-group-item-action flex-column">
-                                <div class="media">
-                                    <div class="pull-left mr-2">
-                                        <img class="avatar-lg" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                                    </div>
-                                    <div class="media-body">
-                                        <p class="mb-1">
-                                            <b>ddsdsds</b> da binh lan vao bai viet
-                                            sdsds
-                                            sdsd
-                                        </p>
-                                        <small>
-                                            <i class="far fa-clock text-primary"></i> 3 gio itruoc
-                                        </small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column">
-                                <div class="media">
-                                    <div class="pull-left mr-2"><img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" width="50" height="50"></div>
-                                    <div class="media-body">
-                                        <p class="mb-1">
-                                            <b>ddsdsds</b> da binh lan vao bai viet
-                                            sdsds
-                                            sdsd
-                                        </p>
-                                        <small>
-                                            <i class="fa fa-clock"></i> 3 gio itruoc
-                                        </small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="" class="list-group-item list-group-item-action flex-column text-center bg-light">
-                                Xem tất cả
-                            </a>
+                    <div class="dropdown-menu dropdown-menu-right notifications" aria-labelledby="myNotification">
+                         <div class="list-group content"
+                            data-url="{% url 'get_actions' %}">
+                            <div class="p-2 header">
+                                <h6 class="d-inline">Thông báo</h6>
+                                <a href="javascript:void(0)"
+                                    class="float-right js-mark-read"
+                                    data-url="{% url 'mark_all_as_read' %}">Đánh dấu tất cả là đã đọc</a>
+                            </div>
+                            <div class="actions">
+                                
+                            </div>
+                            <div class="p-2 footer text-center">
+                                <a href="">Xem tất cả</a>
+                            </div>
                         </div>
                     </div>
                 </li>

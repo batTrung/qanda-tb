@@ -36,7 +36,19 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
         return self.users_saved.all()
 
     def list_unique_users_answered(self):
-        return list(set(a.user for a in self.answers.all()))[:5]
+        return list(set(a.user for a in self.answers.all()))
+
+    def list_unique_users_answered_without_me(self, me):
+        result = self.list_unique_users_answered()
+        try:
+            result.remove(me)
+        except ValueError:
+            print(f'{ me } not in the list')
+
+        return result
+
+    def top_unique_users_answered(self):
+        return self.list_unique_users_answered()[:5]
 
     def list_answers(self):
         return self.answers.filter(is_reply=False).order_by('-is_answer', '-total_votes')
@@ -64,6 +76,9 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
         return self.users_saved.count()
 
     def create_action_save_question(self, actor):
+        create_action(self.user, ActionTypes.SAVED, actor, self, self.get_absolute_url())
+
+    def create_action_new_answer(self, actor):
         create_action(self.user, ActionTypes.SAVED, actor, self, self.get_absolute_url())
 
 

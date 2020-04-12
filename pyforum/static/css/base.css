@@ -54,3 +54,43 @@ a.qa-viewed {
 a.avatar-sm {
     text-decoration: none;
 }
+
+.seen-color {
+    background-color: #f5fcfd !important;
+}
+
+.notifications {
+    border: none;
+    min-width: 30rem;
+    margin: 0;
+    padding: 0;
+}
+
+.notifications .header {
+    position: absolute;
+    z-index: 100;
+    top: 0px;
+    width: 100%;
+    background-color: #ffff;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    border-bottom: 1px solid #e6e0e0;
+}
+
+.notifications .content {
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+.notifications .content .actions {
+    margin-top: 40px;
+}
+
+.notifications .footer {
+    width: 100%;
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    z-index: 100;
+    background-color: #e6e6e6;
+}

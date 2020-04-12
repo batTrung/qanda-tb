@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('accounts/', include('accounts.urls')),
     path('', include('qanda.urls')),
+    path('notifications/', include('notifications.urls')),
 ]
 
 from django.conf import settings

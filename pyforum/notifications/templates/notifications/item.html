@@ -1,4 +1,10 @@
-<a href="{{ action.link }}" class="list-group-item list-group-item-action flex-column">
+<a href="{{ action.link }}"
+    class="list-group-item list-group-item-action flex-column
+    {% if not action.is_read %}
+    seen-color
+    {% endif %}
+    "
+    data-url="{% url 'mark_action_as_read' action.uuid %}">
     <div class="media">
         <div class="pull-left mr-2">
             {% with actor=action.actor %}
@@ -15,7 +21,7 @@
         </div>
         <div class="media-body">
             <p class="mb-1">
-                {{ action | truncatewords:10 }}
+                {{ action | truncatewords:20 }}
             </p>
             <span><i class="fas fa-lg mr-2 {{ action.get_icon }}"></i></span>
             <small>

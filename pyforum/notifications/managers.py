@@ -3,7 +3,7 @@ from django.db import models
 
 class ActionManager(models.Manager):
     def get_queryset(self):
-        return super(ActionManager,
+        return super(
+                    ActionManager,
                     self).get_queryset(
-                    ).select_related('actor',
-                    )
+                    ).select_related('actor')

@@ -9,7 +9,7 @@ CustomUser = get_user_model()
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = CustomUser
-        
+
 
 class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm

@@ -11,11 +11,11 @@ class UUIDable(models.Model):
 
     class Meta:
         abstract = True
-        
+
 
 class Timestampable(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,  db_index=True)
-    updated_at = models.DateTimeField(auto_now=True) 
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
@@ -23,10 +23,11 @@ class Timestampable(models.Model):
 
 class TitleSlugable(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=250,
-                            db_index=True,
-                            unique=True,
-                            blank=True)
+    slug = models.SlugField(
+                max_length=250,
+                db_index=True,
+                unique=True,
+                blank=True)
 
     class Meta:
         abstract = True

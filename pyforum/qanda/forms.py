@@ -1,8 +1,7 @@
 from django import forms
-from django.urls import reverse
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML, Column, Field, Layout, Row, Submit
+from crispy_forms.layout import Column, Field, Layout, Row, Submit
 
 from .models import Answer, Question
 
@@ -34,7 +33,7 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ('content',)
-    
+
     def __init__(self, *args, **kwargs):
         super(AnswerForm, self).__init__(*args, **kwargs)
         self.fields['content'].label = ""

@@ -11,12 +11,14 @@ from .managers import ActionManager
 
 
 class Action(UUIDable):
-    actor = models.ForeignKey(settings.AUTH_USER_MODEL,
+    actor = models.ForeignKey(
+                            settings.AUTH_USER_MODEL,
                             blank=True,
                             null=True,
                             on_delete=models.CASCADE,
                             related_name='notifications_created')
-    recipient = models.ForeignKey(settings.AUTH_USER_MODEL,
+    recipient = models.ForeignKey(
+                                settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
                                 related_name='notifications')
     verb = models.CharField(max_length=2, choices=ActionTypes.CHOICES)
@@ -25,7 +27,8 @@ class Action(UUIDable):
     is_seen = models.BooleanField(default=False)
     is_read = models.BooleanField(default=False)
 
-    content_type = models.ForeignKey(ContentType,
+    content_type = models.ForeignKey(
+                                    ContentType,
                                     blank=True,
                                     null=True,
                                     on_delete=models.CASCADE)
@@ -36,13 +39,17 @@ class Action(UUIDable):
 
     class Meta:
         ordering = ('-created_at', )
-        
+
     def __str__(self):
         if self.content_object:
-            return mark_safe(f'<b>{self.actor}</b> {self.get_verb_display()} {self.content_object.__class__.__name__}: {self.content_object}')
+            return mark_safe(f"""
+                        <b>{self.actor}</b>
+                        {self.get_verb_display()}{self.content_object.__class__.__name__}:
+                        {self.content_object}
+                        """)
         else:
             return mark_safe(f'{self.get_verb_display()}')
-    
+
     @property
     def get_icon(self):
         icons = {

@@ -26,29 +26,32 @@ class Command(BaseCommand):
         num_a = kwargs['answer']
 
         self.stdout.write("Cleaning database...")
+
         User.objects.exclude(is_superuser=True).delete()
         Category.objects.all().delete()
         Question.objects.all().delete()
         Answer.objects.all().delete()
 
         self.stdout.write(self.style.HTTP_NOT_MODIFIED(f"Creating users..."))
-        
+
         users = [
-            User(username=get_random_string(6),
+            User(
+                username=get_random_string(6),
                 password='matkhau123') for i in range(num_u)
         ]
         User.objects.bulk_create(users)
- 
+
         self.stdout.write(self.style.HTTP_NOT_MODIFIED(f"Creating categories..."))
-        
+
         categories = [
-            Category(title=f"Category-{ i }",
+            Category(
+                title=f"Category-{ i }",
                 slug=f'category-slug-{ i }') for i in range(num_c)
         ]
         Category.objects.bulk_create(categories)
 
         self.stdout.write(self.style.HTTP_NOT_MODIFIED(f"Creating questions..."))
-        
+
         for user in User.objects.all():
             questions = [
                 Question(
@@ -56,11 +59,11 @@ class Command(BaseCommand):
                     slug=f"question-slug-{ user.username }-{ i }",
                     user=user,
                     category=get_random_obj(Category),
-                    content = """
-                        Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design.
-                        Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on
-                        writing your app without needing to reinvent the wheel.
-                        It’s free and open source.
+                    content="""
+                        Django is a high-level Python Web framework that encourages rapid development and clean,
+                        pragmatic design. Built by experienced developers, it takes care of much of the hassle
+                        of Web development, so you can focus on writing your app without needing to reinvent the
+                        wheel. It’s free and open source.
                     """,
                     total_views=random.randint(1, 200),
                 ) for i in range(num_q)
@@ -77,13 +80,13 @@ class Command(BaseCommand):
                 ) for i in range(10)
             ]
             Answer.objects.bulk_create(answers)
-            
+
         self.stdout.write(
             self.style.SUCCESS(
-                f"""CREATE SUCCESS:
-                { num_u } users,
-                { num_c } categories, 
-                { num_q*num_u } questions,
-                { num_a*num_q*num_u } answers
-                """)
-        )
+                f"""
+                    CREATE SUCCESS:
+                    { num_u } users,
+                    { num_c } categories,
+                    { num_q*num_u } questions,
+                    { num_a*num_q*num_u } answers
+                """))

@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 
@@ -12,18 +11,21 @@ from .managers import AnswerManager, QuestionManager
 
 
 class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+    user = models.ForeignKey(
+                            settings.AUTH_USER_MODEL,
                             on_delete=models.CASCADE,
                             related_name='questions_created')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='questions')
     content = models.TextField()
-    users_saved = models.ManyToManyField(settings.AUTH_USER_MODEL,
+    users_saved = models.ManyToManyField(
+                                        settings.AUTH_USER_MODEL,
                                         related_name='questions_saved')
-    users_viewed = models.ManyToManyField(settings.AUTH_USER_MODEL,
+    users_viewed = models.ManyToManyField(
+                                        settings.AUTH_USER_MODEL,
                                         related_name='questions_viewed')
     total_views = models.PositiveIntegerField(default=0)
     objects = QuestionManager()
-    
+
     class Meta:
         ordering = ('-created_at',)
 
@@ -71,7 +73,7 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
     @property
     def count_answers(self):
         return self.answers.count()
-    
+
     @property
     def count_users_saved(self):
         return self.users_saved.count()
@@ -84,13 +86,15 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
 
 
 class Answer(UUIDable, Timestampable, Voteable):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+    user = models.ForeignKey(
+                            settings.AUTH_USER_MODEL,
                             on_delete=models.CASCADE,
                             related_name='answers_created')
     content = models.TextField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     is_answer = models.BooleanField(default=False)
-    parent = models.ForeignKey("self",
+    parent = models.ForeignKey(
+                            "self",
                             on_delete=models.CASCADE,
                             blank=True,
                             null=True,
@@ -100,11 +104,11 @@ class Answer(UUIDable, Timestampable, Voteable):
     objects = AnswerManager()
 
     def __str__(self):
-        return self.content 
-        
+        return self.content
+
     def list_replies(self):
         return self.replies.all()
-        
+
     def top_replies(self):
         return self.list_replies()[:settings.NUM_REPLIES]
 
@@ -123,6 +127,6 @@ class Answer(UUIDable, Timestampable, Voteable):
     def create_action_accept_answer(self, actor):
         if self.is_answer:
             create_action(self.user, ActionTypes.ACCEPTED_ANSWER, actor, self, self.get_absolute_url())
-    
+
     def create_action_new_answer(self, actor):
         pass

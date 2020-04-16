@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 
@@ -16,9 +16,10 @@ def get_list_actions(request, query):
     actions = get_pagination_items(request, query, settings.NUMBER_ACTIONS)
     if actions:
         data['is_valid'] = True
-        data['html_data'] = render_to_string('notifications/list.html',
-                                            {'actions': actions},
-                                            request=request)
+        data['html_data'] = render_to_string(
+                                'notifications/list.html',
+                                {'actions': actions},
+                                request=request)
     else:
         data['is_valid'] = False
 

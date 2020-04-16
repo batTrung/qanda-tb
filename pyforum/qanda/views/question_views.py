@@ -16,20 +16,23 @@ def list_questions(request, query, section=''):
         data = dict()
         if questions:
             data['is_valid'] = True
-            data['html_data'] =  render_to_string('qanda/includes/list_questions.html',
-                                                {'questions': questions},
-                                                request=request)
+            data['html_data'] = render_to_string(
+                                    'qanda/includes/list_questions.html',
+                                    {'questions': questions},
+                                    request=request)
             id_item = f'#q-{ questions[0].slug }'
             data['id_item'] = id_item
         else:
             data['is_valid'] = False
         return JsonResponse(data)
 
-    context = {
-        'questions': questions,
-        'section': section,
-    }
-    return render(request, 'qanda/question/list.html', context)
+    return render(
+                request,
+                'qanda/question/list.html',
+                {
+                    'questions': questions,
+                    'section': section,
+                })
 
 
 def list_questions_by_category(request, category_slug):
@@ -62,21 +65,22 @@ def unread_questions(request):
 def question_detail(request, question_slug):
     question = get_object_or_404(Question, slug=question_slug)
     question.add_users_viewed(request.user)
-    
+
     session_key = 'viewed_question_{}'.format(question.pk)
     if not request.session.get(session_key, False):
         question.total_views += 1
         question.save()
         request.session[session_key] = True
 
-    context = {
-        'question': question,
-        'reply_form': ReplyForm(),
-        'form': AnswerForm(),
-        'section': 'new',
-    }
-
-    return render(request, 'qanda/question/detail.html', context)
+    return render(
+                request,
+                'qanda/question/detail.html',
+                {
+                    'question': question,
+                    'reply_form': ReplyForm(),
+                    'form': AnswerForm(),
+                    'section': 'new',
+                })
 
 
 @login_required
@@ -91,10 +95,7 @@ def create_question(request):
     else:
         form = QuestionForm()
 
-    context = {
-        'form': form,
-    }
-    return render(request, 'qanda/question/create.html', context)
+    return render(request, 'qanda/question/create.html', {'form': form})
 
 
 @login_required
@@ -107,8 +108,5 @@ def question_update(request, question_slug):
             return redirect(reverse('question_detail', args=[question.slug]))
     else:
         form = QuestionForm(instance=question)
-        
-    context = {
-        'form': form,
-    }
-    return render(request, 'qanda/question/update.html', context)
+
+    return render(request, 'qanda/question/update.html', {'form': form})

@@ -26,8 +26,9 @@ def save_question(request, question_slug):
         question.create_action_save_question(request.user)
     else:
         question.users_saved.remove(user)
-    
-    data['html_votes'] = render_to_string('qanda/includes/question_votes.html',
+
+    data['html_votes'] = render_to_string(
+                                        'qanda/includes/question_votes.html',
                                         {'question': question},
                                         request=request)
 
@@ -40,7 +41,8 @@ def create_question_votes(request, question_slug, value):
     voted = request.POST.get('voted')
     create_votes(question, request.user, value, voted)
 
-    data['html_votes'] = render_to_string('qanda/includes/question_votes.html',
+    data['html_votes'] = render_to_string(
+                                        'qanda/includes/question_votes.html',
                                         {'question': question},
                                         request=request)
     return JsonResponse(data)
@@ -67,7 +69,8 @@ def create_answer_votes(request, question_slug, answer_uuid, value):
     voted = request.POST.get('voted')
     create_votes(answer, request.user, value, voted)
 
-    data['html_votes'] = render_to_string('qanda/includes/answer_votes.html',
+    data['html_votes'] = render_to_string(
+                                        'qanda/includes/answer_votes.html',
                                         {'answer': answer, 'question': question},
                                         request=request)
     return JsonResponse(data)
@@ -98,10 +101,11 @@ def accept_answer(request, question_slug, answer_uuid):
     answer.is_answer = not answer.is_answer
     answer.save()
     answer.create_action_accept_answer(request.user)
-    
+
     data['id_item'] = f'#item-{ answer.uuid }' if answer.is_answer else None
 
-    data['html_votes'] = render_to_string('qanda/includes/answer_votes.html',
+    data['html_votes'] = render_to_string(
+                                        'qanda/includes/answer_votes.html',
                                         {'question': question, 'answer': answer},
                                         request=request)
 
@@ -114,7 +118,7 @@ def accept_answer(request, question_slug, answer_uuid):
 def create_answer(request, question_slug):
     data = dict()
     question = get_object_or_404(Question, slug=question_slug)
-    
+
     form = AnswerForm(request.POST)
     if form.is_valid():
         data['is_valid'] = True
@@ -122,9 +126,10 @@ def create_answer(request, question_slug):
         new_answer.user = request.user
         new_answer.question = question
         new_answer.save()
-        data['html_data'] = render_to_string('qanda/answer/item.html',
-                                    {'answer': new_answer, 'question': question, 'reply_form': ReplyForm()},
-                                    request=request)
+        data['html_data'] = render_to_string(
+                                'qanda/answer/item.html',
+                                {'answer': new_answer, 'question': question, 'reply_form': ReplyForm()},
+                                request=request)
     else:
         data['is_valid'] = False
 
@@ -139,9 +144,10 @@ def delete_question(request, question_slug):
     if request.method == "POST":
         question.delete()
         data['redirect_url'] = reverse('new_questions')
-    data['html_form'] = render_to_string('qanda/question/form_delete.html',
-                                        {'question': question},
-                                        request=request)
+    data['html_form'] = render_to_string(
+                            'qanda/question/form_delete.html',
+                            {'question': question},
+                            request=request)
     return JsonResponse(data)
 
 
@@ -154,9 +160,10 @@ def delete_answer(request, answer_uuid):
         data['id_item'] = f'#item-{answer.uuid}'
         answer.delete()
     else:
-        data['html_form'] = render_to_string('qanda/answer/form_delete.html',
-                                            {'answer': answer},
-                                            request=request)
+        data['html_form'] = render_to_string(
+                                'qanda/answer/form_delete.html',
+                                {'answer': answer},
+                                request=request)
     return JsonResponse(data)
 
 
@@ -172,18 +179,20 @@ def update_answer(request, answer_uuid):
             data['is_valid'] = True
             data['id_item'] = f'#item-{answer.uuid}'
             case = 'reply' if answer.is_reply else 'answer'
-            data['html_data'] = render_to_string(f'qanda/{case}/item.html',
-                                                {f'{case}': answer, 'reply_form': ReplyForm()},
-                                                request=request)
+            data['html_data'] = render_to_string(
+                                    f'qanda/{case}/item.html',
+                                    {f'{case}': answer, 'reply_form': ReplyForm()},
+                                    request=request)
         else:
             data['is_valid'] = False
 
     else:
         form = AnswerForm(instance=answer)
 
-    data['html_form'] = render_to_string('qanda/answer/form_update.html',
-                                        {'answer': answer, 'form': form},
-                                        request=request)
+    data['html_form'] = render_to_string(
+                            'qanda/answer/form_update.html',
+                            {'answer': answer, 'form': form},
+                            request=request)
     return JsonResponse(data)
 
 
@@ -205,15 +214,17 @@ def create_reply(request, answer_uuid):
             is_reply=True)
         new_reply.save()
         data['is_valid'] = True
-        data['html_data'] = render_to_string('qanda/reply/item.html',
-                                            {'reply': new_reply},
-                                            request=request)
+        data['html_data'] = render_to_string(
+                                'qanda/reply/item.html',
+                                {'reply': new_reply},
+                                request=request)
     else:
         data['is_valid'] = False
 
-    data['html_form'] = render_to_string('qanda/reply/form_create.html',
-                                        {'form': form, 'answer': answer},
-                                        request=request)
+    data['html_form'] = render_to_string(
+                            'qanda/reply/form_create.html',
+                            {'form': form, 'answer': answer},
+                            request=request)
     return JsonResponse(data)
 
 
@@ -224,9 +235,10 @@ def load_more_asnwers(request, question_slug):
     answers = get_pagination_items(request, question.list_answers(), settings.NUM_ANSWERS)
     if answers:
         data['is_valid'] = True
-        data['html_data'] = render_to_string('qanda/answer/list.html',
-                                            {"answers": answers, 'reply_form': ReplyForm()},
-                                            request=request)
+        data['html_data'] = render_to_string(
+                                'qanda/answer/list.html',
+                                {"answers": answers, 'reply_form': ReplyForm()},
+                                request=request)
     else:
         data['is_valid'] = False
 
@@ -240,9 +252,10 @@ def load_more_replies(request, answer_uuid):
     replies = get_pagination_items(request, answer.list_replies(), settings.NUM_REPLIES)
     if replies:
         data['is_valid'] = True
-        data['html_data'] = render_to_string('qanda/reply/list.html',
-                                            {"replies": replies},
-                                            request=request)
+        data['html_data'] = render_to_string(
+                                'qanda/reply/list.html',
+                                {"replies": replies},
+                                request=request)
     else:
         data['is_valid'] = False
 

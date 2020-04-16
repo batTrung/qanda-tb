@@ -6,3 +6,4 @@ Pillow==7.1.1
 py-gfm==0.1.4
 sorl-thumbnail==12.6.3
 isort==4.3.21
+flake8==3.7.8

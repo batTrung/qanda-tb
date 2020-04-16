@@ -17,9 +17,9 @@ def get_class_color(instance):
     try:
         index = instance.id % len(colors)
         return colors[index]
-    except:
+    except Exception:
         return 'primary'
-        
+
 
 @register.filter(name='markdown')
 def markdown_filter(value):

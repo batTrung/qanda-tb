@@ -22,9 +22,10 @@ class Category(TitleSlugable):
 
 
 class Vote(UUIDable):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                            on_delete=models.CASCADE,
-                            related_name='+')
+    user = models.ForeignKey(
+                settings.AUTH_USER_MODEL,
+                on_delete=models.CASCADE,
+                related_name='+')
     value = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -41,11 +42,12 @@ class Vote(UUIDable):
         super(Vote, self).save(*args, **kwargs)
         if self.content_object.user != self.user:
             verb = ActionTypes.VOTED_UP if self.value else ActionTypes.VOTED_DOWN
-            create_action(self.content_object.user,
-                        verb,
-                        self.user,
-                        self.content_object,
-                        self.content_object.get_absolute_url())
+            create_action(
+                self.content_object.user,
+                verb,
+                self.user,
+                self.content_object,
+                self.content_object.get_absolute_url())
 
 
 class Voteable(models.Model):

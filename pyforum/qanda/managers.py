@@ -3,18 +3,12 @@ from django.db import models
 
 class QuestionManager(models.Manager):
     def get_queryset(self):
-        return super(
-                        QuestionManager,
-                        self
-                    ).get_queryset(
-                    ).select_related(
-                        'user',
-                        'category',
-                    ).prefetch_related(
-                        'answers',
-                        'users_viewed',
-                        'answers__user',
-                    )
+        return (
+            super(QuestionManager, self)
+            .get_queryset()
+            .select_related("user", "category",)
+            .prefetch_related("answers", "users_viewed", "answers__user",)
+        )
 
     def list_unread_answers(self, user):
         query = self.get_queryset()
@@ -27,10 +21,4 @@ class QuestionManager(models.Manager):
 
 class AnswerManager(models.Manager):
     def get_queryset(self):
-        return super(
-                        AnswerManager,
-                        self
-                    ).get_queryset(
-                    ).select_related(
-                        'user',
-                    ).prefetch_related('replies')
+        return super(AnswerManager, self).get_queryset().select_related("user",).prefetch_related("replies")

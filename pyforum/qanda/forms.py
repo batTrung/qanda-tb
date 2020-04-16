@@ -7,10 +7,13 @@ from .models import Answer, Question
 
 
 class QuestionForm(forms.ModelForm):
-
     class Meta:
         model = Question
-        fields = ('title', 'category', 'content',)
+        fields = (
+            "title",
+            "category",
+            "content",
+        )
 
     def __init__(self, *args, **kwargs):
         super(QuestionForm, self).__init__(*args, **kwargs)
@@ -19,24 +22,20 @@ class QuestionForm(forms.ModelForm):
         self.helper.form_class = "py-4"
         self.helper.form_method = "POST"
         self.helper.layout = Layout(
-            Row(
-                Column('title'),
-                Column('category'),
-            ),
-            Field('content', rows=6),
-            Submit('submit', 'Đăng', css_class="btn btn-success btn-lg btn-block"),
+            Row(Column("title"), Column("category"),),
+            Field("content", rows=6),
+            Submit("submit", "Đăng", css_class="btn btn-success btn-lg btn-block"),
         )
 
 
 class AnswerForm(forms.ModelForm):
-
     class Meta:
         model = Answer
-        fields = ('content',)
+        fields = ("content",)
 
     def __init__(self, *args, **kwargs):
         super(AnswerForm, self).__init__(*args, **kwargs)
-        self.fields['content'].label = ""
+        self.fields["content"].label = ""
 
 
 class ReplyForm(forms.Form):
@@ -44,4 +43,4 @@ class ReplyForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(ReplyForm, self).__init__(*args, **kwargs)
-        self.fields['content'].label = ""
+        self.fields["content"].label = ""

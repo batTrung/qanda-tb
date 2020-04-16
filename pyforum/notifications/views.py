@@ -15,13 +15,10 @@ def get_list_actions(request, query):
     data = dict()
     actions = get_pagination_items(request, query, settings.NUMBER_ACTIONS)
     if actions:
-        data['is_valid'] = True
-        data['html_data'] = render_to_string(
-                                'notifications/list.html',
-                                {'actions': actions},
-                                request=request)
+        data["is_valid"] = True
+        data["html_data"] = render_to_string("notifications/list.html", {"actions": actions}, request=request)
     else:
-        data['is_valid'] = False
+        data["is_valid"] = False
 
     return JsonResponse(data)
 
@@ -52,9 +49,9 @@ def mark_action_as_read(request, action_uuid):
     action.is_read = True
     action.save()
     if action.link:
-        data['is_valid'] = True
-        data['redirect_url'] = action.link
+        data["is_valid"] = True
+        data["redirect_url"] = action.link
     else:
-        data['is_valid'] = False
+        data["is_valid"] = False
 
     return JsonResponse(data)

@@ -14,9 +14,7 @@ class CustomUserChangeForm(UserChangeForm):
 class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
 
-    fieldsets = UserAdmin.fieldsets + (
-            (None, {'fields': ('photo',)}),
-    )
+    fieldsets = UserAdmin.fieldsets + ((None, {"fields": ("photo",)}),)
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

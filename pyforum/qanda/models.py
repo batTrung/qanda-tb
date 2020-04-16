@@ -11,26 +11,19 @@ from .managers import AnswerManager, QuestionManager
 
 
 class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
-    user = models.ForeignKey(
-                            settings.AUTH_USER_MODEL,
-                            on_delete=models.CASCADE,
-                            related_name='questions_created')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='questions')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="questions_created")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="questions")
     content = models.TextField()
-    users_saved = models.ManyToManyField(
-                                        settings.AUTH_USER_MODEL,
-                                        related_name='questions_saved')
-    users_viewed = models.ManyToManyField(
-                                        settings.AUTH_USER_MODEL,
-                                        related_name='questions_viewed')
+    users_saved = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="questions_saved")
+    users_viewed = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="questions_viewed")
     total_views = models.PositiveIntegerField(default=0)
     objects = QuestionManager()
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ("-created_at",)
 
     def get_absolute_url(self):
-        return reverse('question_detail', args=[self.slug])
+        return reverse("question_detail", args=[self.slug])
 
     def list_users_viewed(self):
         return self.users_viewed.all()
@@ -46,7 +39,7 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
         try:
             result.remove(me)
         except ValueError:
-            print(f'{ me } not in the list')
+            print(f"{ me } not in the list")
 
         return result
 
@@ -54,10 +47,10 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
         return self.list_unique_users_answered()[:5]
 
     def list_answers(self):
-        return self.answers.filter(is_reply=False).order_by('-is_answer', '-total_votes')
+        return self.answers.filter(is_reply=False).order_by("-is_answer", "-total_votes")
 
     def top_answers(self):
-        return self.list_answers()[:settings.NUM_ANSWERS]
+        return self.list_answers()[: settings.NUM_ANSWERS]
 
     @property
     def more_answers(self):
@@ -86,19 +79,11 @@ class Question(UUIDable, TitleSlugable, Timestampable, Voteable):
 
 
 class Answer(UUIDable, Timestampable, Voteable):
-    user = models.ForeignKey(
-                            settings.AUTH_USER_MODEL,
-                            on_delete=models.CASCADE,
-                            related_name='answers_created')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="answers_created")
     content = models.TextField()
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
     is_answer = models.BooleanField(default=False)
-    parent = models.ForeignKey(
-                            "self",
-                            on_delete=models.CASCADE,
-                            blank=True,
-                            null=True,
-                            related_name='replies')
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True, related_name="replies")
     is_reply = models.BooleanField(default=False, db_index=True)
 
     objects = AnswerManager()
@@ -110,7 +95,7 @@ class Answer(UUIDable, Timestampable, Voteable):
         return self.replies.all()
 
     def top_replies(self):
-        return self.list_replies()[:settings.NUM_REPLIES]
+        return self.list_replies()[: settings.NUM_REPLIES]
 
     @property
     def more_replies(self):
@@ -121,8 +106,8 @@ class Answer(UUIDable, Timestampable, Voteable):
         return self.replies.count()
 
     def get_absolute_url(self):
-        question_detail_url = reverse('question_detail', args=[self.question.slug])
-        return f'{ question_detail_url }#item-{self.uuid}'
+        question_detail_url = reverse("question_detail", args=[self.question.slug])
+        return f"{ question_detail_url }#item-{self.uuid}"
 
     def create_action_accept_answer(self, actor):
         if self.is_answer:

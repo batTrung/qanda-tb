@@ -5,4 +5,9 @@ from .models import Action
 
 @admin.register(Action)
 class ActionAdmin(admin.ModelAdmin):
-    list_display = ('actor', 'verb', 'recipient', 'link',)
+    list_display = (
+        "actor",
+        "verb",
+        "recipient",
+        "link",
+    )

@@ -1,9 +1,8 @@
-from markdown import markdown
-from mdx_gfm import GithubFlavoredMarkdownExtension
-
 from django import template
 from django.utils.html import mark_safe
 
+from markdown import markdown
+from mdx_gfm import GithubFlavoredMarkdownExtension
 
 register = template.Library()
 

@@ -1,6 +1,10 @@
 $(function () {
     var options = getOptions();
-    var sml = new SimpleMDE(options);
+    console.log(options)
+    var sml = new SimpleMDE({
+            element: $('textarea')[0],
+            options
+        });
 
     $("form").attr('novalidate', 'novalidate');
     var csrftoken = $("input[name='csrfmiddlewaretoken']").val()
@@ -162,7 +166,6 @@ $(function () {
     }
 
     var loadMore = function (el, page) {
-        console.log(page)
         $.ajax({
             url: el.attr('data-url')+ '?page=' + page,
             dataType: 'json',
@@ -229,7 +232,7 @@ $(function () {
     var pageAnswer = 2;
     var pageReply = 2;
 
-    $('#answers').on('click', '#js-load-more-answers', function () {
+    $('#js-load-more-answers').on('click', function () {
         let el = $(this);
 
         $.ajax({
@@ -238,10 +241,10 @@ $(function () {
             type: 'get',
             success: function (data) {
                 if (data.is_valid) {
-                    el.before(data.html_data);
+                    $('#answers').append(data.html_data);
                     pageAnswer += 1;
                 } else {
-                    el.html('')
+                    el.hide();
                 }
             }
         });
@@ -260,7 +263,7 @@ $(function () {
                     el.before(data.html_data);
                     pageReply += 1;
                 } else {
-                    el.html('')
+                    el.hide();
                 }
             }
         });

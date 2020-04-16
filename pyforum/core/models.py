@@ -1,14 +1,17 @@
 from collections import Counter
 
-from django.db import models
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericRelation, GenericForeignKey
+from django.contrib.contenttypes.fields import (
+    GenericForeignKey, GenericRelation
+)
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 
-from .behaviors import UUIDable, TitleSlugable
-from .managers import VoteManager
-from notifications.utils import create_action
 from notifications.constants import ActionTypes
+from notifications.utils import create_action
+
+from .behaviors import TitleSlugable, UUIDable
+from .managers import VoteManager
 
 
 class Category(TitleSlugable):

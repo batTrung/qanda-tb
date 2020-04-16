@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Answer
+from .models import Answer, Question
 
 
 @admin.register(Question)
@@ -14,4 +14,3 @@ class QuestionAdmin(admin.ModelAdmin):
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ('user', 'content',)
     search_fields = ('content',)
-

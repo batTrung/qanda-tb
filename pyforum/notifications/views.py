@@ -1,13 +1,14 @@
-from django.shortcuts import render, get_object_or_404
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
-from django.conf import settings
 from django.views.decorators.http import require_POST
 
-from .models import Action
 from core.decorators import ajax_required
 from core.helpers import get_pagination_items
+
+from .models import Action
 
 
 def get_list_actions(request, query):

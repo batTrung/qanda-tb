@@ -1,13 +1,12 @@
 import random
 
-from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
 
-from core.models import Category
 from core.helpers import get_random_obj
-from qanda.models import Question, Answer
-
+from core.models import Category
+from qanda.models import Answer, Question
 
 User = get_user_model()
 

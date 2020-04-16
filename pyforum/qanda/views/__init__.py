@@ -1,12 +1,13 @@
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.views.decorators.http import require_POST
 
-from ..models import Question, Answer
 from core.decorators import ajax_required
 from core.utils import create_votes
+
+from ..models import Answer, Question
 
 
 @login_required

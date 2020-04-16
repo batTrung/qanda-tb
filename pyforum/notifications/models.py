@@ -1,12 +1,13 @@
-from django.db import models
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.utils.html import mark_safe
+
+from core.behaviors import UUIDable
 
 from .constants import ActionTypes
 from .managers import ActionManager
-from core.behaviors import UUIDable
 
 
 class Action(UUIDable):

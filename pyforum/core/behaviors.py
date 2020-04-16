@@ -1,9 +1,9 @@
-import uuid
-import string
 import random
+import string
+import uuid
 
-from django.utils.text import slugify
 from django.db import models
+from django.utils.text import slugify
 
 
 class UUIDable(models.Model):
@@ -40,5 +40,3 @@ class TitleSlugable(models.Model):
 
     def __str__(self):
         return self.title
-
-

@@ -13,4 +13,3 @@ class VoteManager(models.Manager):
 
     def count_votedown(self):
         return self.get_queryset().filter(value=False).count()
-

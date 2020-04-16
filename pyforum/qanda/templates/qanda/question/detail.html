@@ -57,15 +57,15 @@
     <div class="dropdown-divider mb-4"></div>
     <div id="answers" class="js-toggle-qa modal-block modal-data">
         {% include "qanda/answer/list.html" with answers=question.top_answers %}
-        {% if question.more_answers %}
-        <div class="text-center mb-2"
-            id="js-load-more-answers"
-            data-url="{% url 'load_more_asnwers' question.slug %}">
-            <button class="btn btn-light">
-               <i class="fas fa-arrow-circle-down mr-1"></i> Xem thêm</button>
-        </div>
-        {% endif %}
     </div>
+    {% if question.more_answers %}
+    <div class="text-center mb-2"
+        id="js-load-more-answers"
+        data-url="{% url 'load_more_asnwers' question.slug %}">
+        <button class="btn btn-light">
+           <i class="fas fa-arrow-circle-down mr-1"></i> Xem thêm</button>
+    </div>
+    {% endif %}
     <div class="dropdown-divider mt-3"></div>
     <h2 class="mt-4">Viết câu trả lời</h2>
     <div id="form-answer" class="mb-4">

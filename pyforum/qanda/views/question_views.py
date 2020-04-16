@@ -1,12 +1,13 @@
-from django.urls import reverse
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
+from django.urls import reverse
 
-from ..models import Question
-from ..forms import QuestionForm, AnswerForm, ReplyForm
 from core.helpers import get_pagination_items
+
+from ..forms import AnswerForm, QuestionForm, ReplyForm
+from ..models import Question
 
 
 def list_questions(request, query, section=''):

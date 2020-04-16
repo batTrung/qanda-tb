@@ -1,5 +1,5 @@
-from django.http import HttpResponseBadRequest
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseBadRequest
 
 
 def ajax_required(f):
@@ -21,4 +21,3 @@ def ajax_required(f):
     wrap.__name__=f.__name__
 
     return wrap
-

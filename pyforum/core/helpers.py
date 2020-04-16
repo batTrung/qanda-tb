@@ -1,7 +1,7 @@
 import random
 
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Max
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def get_random_obj(cls):

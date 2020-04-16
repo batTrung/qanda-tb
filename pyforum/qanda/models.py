@@ -1,13 +1,14 @@
-from django.urls import reverse
-from django.db import models
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
+from django.db import models
+from django.urls import reverse
 
-from .managers import QuestionManager, AnswerManager
-from core.behaviors import UUIDable, Timestampable, TitleSlugable
+from core.behaviors import Timestampable, TitleSlugable, UUIDable
 from core.models import Category, Voteable
-from notifications.utils import create_action
 from notifications.constants import ActionTypes
+from notifications.utils import create_action
+
+from .managers import AnswerManager, QuestionManager
 
 
 class Question(UUIDable, TitleSlugable, Timestampable, Voteable):

@@ -1,7 +1,7 @@
 import random
 
-from django.db.models import Max
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Max
 
 from .models import Vote
 

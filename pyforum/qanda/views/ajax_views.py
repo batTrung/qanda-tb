@@ -1,16 +1,17 @@
-from django.urls import reverse
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.template.loader import render_to_string
-from django.http import JsonResponse
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.views.decorators.http import require_POST
 
-from ..models import Question, Answer
-from ..forms import AnswerForm, ReplyForm
 from core.decorators import ajax_required
-from core.utils import create_votes
 from core.helpers import get_pagination_items
+from core.utils import create_votes
+
+from ..forms import AnswerForm, ReplyForm
+from ..models import Answer, Question
 
 
 @login_required

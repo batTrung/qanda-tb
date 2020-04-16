@@ -79,7 +79,6 @@ $(function () {
 
         let isLoadMore = el.height() + el.scrollTop() > actions.height();
         if (isLoadMore && !request_action) {
-            console.log("Calllllllllllllllllllllll", page_action);
             request_action = true;
             $.ajax({
                 url: el.attr('data-url') + '?page=' + page_action,

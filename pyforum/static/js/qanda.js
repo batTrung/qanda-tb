@@ -1,13 +1,12 @@
 $(function () {
     var options = getOptions();
-    console.log(options)
     var sml = new SimpleMDE({
             element: $('textarea')[0],
             options
         });
 
     $("form").attr('novalidate', 'novalidate');
-    var csrftoken = $("input[name='csrfmiddlewaretoken']").val()
+    var csrftoken = $("input[name='csrfmiddlewaretoken']").val();
 
     var toggleSave = function () {
         let el = $(this);

@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block style %}
 <link rel="stylesheet" href="{% static 'vendor/simplemde-1.11.2/simplemde.min.css' %}">
 <link rel="stylesheet" href="{% static 'vendor/highlight-9.11.0/github.min.css' %}">
 <script src="{% static 'vendor/highlight-9.11.0/highlight.min.js' %}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 {% endblock style %}
+
 {% block main %}
 {% include "qanda/includes/navbar.html" %}
 {% block content %}{% endblock content %}
 {% endblock main %}
 
-{% block scripts %}
+{% block scripts %}`
 <script src="{% static 'vendor/simplemde-1.11.2/simplemde.min.js' %}"></script>
 <script src="{% static 'vendor/sweetalert2/sweetalert.min.js' %}"></script>
 <script src="{% static 'vendor/simplemde-1.11.2/custom.js' %}"></script>

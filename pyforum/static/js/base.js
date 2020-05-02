@@ -46,6 +46,7 @@ $(function () {
         })
     });
 
+
     // Avoid dropdown menu close on click inside
     $('.notifications.dropdown-menu').on('click', function (e) {
         e.stopPropagation();
@@ -55,6 +56,7 @@ $(function () {
         actions = $('.notifications .actions'),
         page_action = 2,
         request_action = false;
+
 
     // Click Notification Icon
     $('#myNotification').on('click', function () {
@@ -72,6 +74,7 @@ $(function () {
             }
         });
     });
+
 
     // Scroll content actions
     content_actions.on('scroll', function () {
@@ -97,6 +100,7 @@ $(function () {
         }
     });
 
+
     $('.notifications').on('click', '.js-mark-read', function () {
         let el = $(this);
 
@@ -113,6 +117,7 @@ $(function () {
             }
         });
     });
+
 
     $('.notifications').on('click', '.actions a', function () {
         let el = $(this);

@@ -1,7 +1,6 @@
-from django.contrib.auth import login
-from django.shortcuts import redirect, render, get_object_or_404
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CustomUserCreationForm
 

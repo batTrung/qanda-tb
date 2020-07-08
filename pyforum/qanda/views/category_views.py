@@ -1,15 +1,15 @@
 from django.db.models import Count
-from django.shortcuts import render
 from django.http import JsonResponse
+from django.shortcuts import render
 from django.template.loader import render_to_string
 
-from core.models import Category
 from core.helpers import get_pagination_items
+from core.models import Category
 
 
 def list_categories(request):
     query = Category.objects.annotate(
-        num_questions = Count('questions')
+        num_questions=Count('questions')
     ).order_by('-num_questions')
     categories = get_pagination_items(request, query)
 

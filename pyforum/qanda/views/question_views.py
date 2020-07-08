@@ -25,7 +25,14 @@ def list_questions(request, query, section=""):
             data["is_valid"] = False
         return JsonResponse(data)
 
-    return render(request, "qanda/question/list.html", {"questions": questions, "section": section,})
+    return render(
+        request,
+        "qanda/question/list.html",
+        {
+            "questions": questions,
+            "section": section,
+        }
+    )
 
 
 def list_questions_by_category(request, category_slug):
@@ -68,7 +75,12 @@ def question_detail(request, question_slug):
     return render(
         request,
         "qanda/question/detail.html",
-        {"question": question, "reply_form": ReplyForm(), "form": AnswerForm(), "section": "new",},
+        {
+            "question": question,
+            "reply_form": ReplyForm(),
+            "form": AnswerForm(),
+            "section": "new",
+        },
     )
 
 

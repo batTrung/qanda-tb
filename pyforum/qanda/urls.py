@@ -1,7 +1,6 @@
 from django.urls import path
 
-from .views import ajax_views, question_views, category_views
-
+from .views import ajax_views, category_views, question_views
 
 urlpatterns = [
     path("new/", question_views.new_questions, name="new_questions"),

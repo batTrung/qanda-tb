@@ -20,6 +20,7 @@ $ django-admin startproject myproject .
 ```
 """
 
+
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("-u", "--user", type=int, default=200, help="Number users")
@@ -47,7 +48,10 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.HTTP_NOT_MODIFIED(f"Creating categories..."))
 
-        CATEGORIES = ['Python', 'Django', 'Vuejs', 'React', 'Angular', 'Data Analysis', 'Machine Learning', 'JavaScript']
+        CATEGORIES = [
+            'Python', 'Django', 'Vuejs', 'React', 'Angular',
+            'Data Analysis', 'Machine Learning', 'JavaScript',
+        ]
 
         categories = [
             Category(

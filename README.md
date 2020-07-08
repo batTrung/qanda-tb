@@ -13,6 +13,7 @@ Cài đặt requirements:
 ```bash
 cd qanda-tb
 pip install -r requirements.txt
+cd pyforum
 ```
 
 Tạo database:

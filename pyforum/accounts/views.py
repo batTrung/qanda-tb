@@ -1,5 +1,6 @@
 from django.contrib.auth import login
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 
 from .forms import CustomUserCreationForm
@@ -18,11 +19,14 @@ def signup(request):
     return render(request, "accounts/signup.html", {"form": form})
 
 
-@login_required
-def profile(request):
+def profile(request, username):
+    owner = get_object_or_404(get_user_model(), username=username)
     return render(
         request,
         "accounts/profile.html",
+        {
+            "owner": owner,
+        }
     )
 
 

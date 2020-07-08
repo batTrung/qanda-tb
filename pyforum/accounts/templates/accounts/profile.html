@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Trang cá nhân: {{ request.user }}
+    {{ owner.username }}
 {% endblock title %}
 
 {% block main %}
 <div class="text-center pt-5">
-    <h1 class="display-4">Trang cá nhân: {{ request.user }}</h1>
+    <h1 class="display-4">Trang cá nhân</h1>
+    <p>
+        Trang cá nhân của <b>{{ owner.username }}</b>
+    </p>
     </div>
 </div>
 {% endblock main %}

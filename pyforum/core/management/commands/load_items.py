@@ -67,7 +67,7 @@ class Command(BaseCommand):
         for user in User.objects.all():
             questions = [
                 Question(
-                    title=f"Question { i }",
+                    title=f"Question { user.username } { i }",
                     slug=f"question-slug-{ user.username }-{ i }",
                     user=user,
                     category=get_random_obj(Category),

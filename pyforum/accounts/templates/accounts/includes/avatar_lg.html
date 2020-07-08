@@ -1,5 +1,5 @@
 {% load core %}
-<a href=""
+<a href="{% url 'profile' user.username %}"
     class="avatar-lg mr-1 d-none d-lg-block btn-{{ user | class_color }}"
     title="">
     {% if user.photo %}

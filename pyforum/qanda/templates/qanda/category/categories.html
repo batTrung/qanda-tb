@@ -1,0 +1,9 @@
+{% for category in categories %}
+<tr id="q-{{ category.slug }}">
+    <th scope="row">{{ forloop.counter0 | add:categories.start_index }}</th>
+    <td>
+        {% include "qanda/includes/category.html" %}
+    </td>
+    <td>{{ category.num_questions }}</td>
+</tr>
+{% endfor %}

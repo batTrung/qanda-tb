@@ -4,7 +4,10 @@
             href="{% url 'new_questions' %}">
             <i class="far fa-comment-dots mr-2 text-success"></i>Q&A
         </a>
-        <a class="nav-item nav-link border text-secondary mr-2" href=""><i class="far fa-list-alt mr-2 text-danger"></i>Categories</a>
+        <a class="nav-item nav-link border text-secondary mr-2 {% ifequal section 'categories' %}active-qa{% endifequal %}"
+            href="{% url 'list_categories' %}">
+            <i class="far fa-list-alt mr-2 text-danger"></i>Categories
+        </a>
         <a class="nav-item nav-link border text-secondary mr-2
             {% ifequal section 'top' %}
             active-qa

@@ -1,10 +1,11 @@
 from django.urls import path
 
-from .views import ajax_views, question_views
+from .views import ajax_views, question_views, category_views
 
 
 urlpatterns = [
     path("new/", question_views.new_questions, name="new_questions"),
+    path('categories/', category_views.list_categories, name="list_categories"),
     path("top/", question_views.top_questions, name="top_questions"),
     path("saved/", question_views.saved_questions, name="saved_questions"),
     path("unread/", question_views.unread_questions, name="unread_questions"),

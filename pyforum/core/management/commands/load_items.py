@@ -11,6 +11,14 @@ from qanda.models import Answer, Question
 User = get_user_model()
 
 
+CONTENT = """
+Khởi tạo dự án Django:
+
+```bash
+$ django-admin startproject myproject .
+```
+"""
+
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("-u", "--user", type=int, default=200, help="Number users")
@@ -46,16 +54,11 @@ class Command(BaseCommand):
         for user in User.objects.all():
             questions = [
                 Question(
-                    title=f"Question { user.username } { i }",
+                    title=f"Question { i }",
                     slug=f"question-slug-{ user.username }-{ i }",
                     user=user,
                     category=get_random_obj(Category),
-                    content="""
-                        Django is a high-level Python Web framework that encourages rapid development and clean,
-                        pragmatic design. Built by experienced developers, it takes care of much of the hassle
-                        of Web development, so you can focus on writing your app without needing to reinvent the
-                        wheel. It’s free and open source.
-                    """,
+                    content=CONTENT,
                     total_views=random.randint(1, 200),
                 )
                 for i in range(num_q)

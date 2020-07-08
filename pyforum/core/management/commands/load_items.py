@@ -3,6 +3,7 @@ import random
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
+from django.utils.text import slugify
 
 from core.helpers import get_random_obj
 from core.models import Category
@@ -46,7 +47,15 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.HTTP_NOT_MODIFIED(f"Creating categories..."))
 
-        categories = [Category(title=f"Category-{ i }", slug=f"category-slug-{ i }") for i in range(num_c)]
+        CATEGORIES = ['Python', 'Django', 'Vuejs', 'React', 'Angular', 'Data Analysis', 'Machine Learning', 'JavaScript']
+
+        categories = [
+            Category(
+                title=category,
+                slug=slugify(category),
+            ) for category in CATEGORIES
+        ]
+
         Category.objects.bulk_create(categories)
 
         self.stdout.write(self.style.HTTP_NOT_MODIFIED(f"Creating questions..."))

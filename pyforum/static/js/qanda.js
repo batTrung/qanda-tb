@@ -1,9 +1,9 @@
 $(function () {
     var options = getOptions();
     var sml = new SimpleMDE({
-            element: $('textarea')[0],
-            options
-        });
+        element: $('textarea')[0],
+        ...options,
+    });
 
     $("form").attr('novalidate', 'novalidate');
     var csrftoken = $("input[name='csrfmiddlewaretoken']").val();

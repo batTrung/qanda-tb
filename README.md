@@ -29,3 +29,11 @@ python manage.py runserver
 ```
 
 Mở Chrome hay FireFox : **localhost:8000**
+
+## DEMO
+
+[DEMO]
+
+[DEMO]: https://qanda-tb.herokuapp.com/
+
+

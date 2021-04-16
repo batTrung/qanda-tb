@@ -1,7 +1,7 @@
 django>=3.0.7
 django-crispy-forms==1.9.0
 sorl-thumbnail==12.6.3
-django-debug-toolbar==2.2
+django-debug-toolbar==2.2.1
 python-decouple==3.3
 dj-database-url==0.5.0
 whitenoise==5.1.0
